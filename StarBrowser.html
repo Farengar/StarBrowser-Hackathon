@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Getting Started With Three.js</title>
+  </head>
+  <body>
+    <input type="text" style="float:right" id="clocktext"/>
+	<input type="button" style="float:right" id="stop" value="Stop" onclick="stopClock()"/>
+	<input type="button" style="float:right" id="start" value="Start" onclick="startClock()"/>
+    <script src="js/three.min.js"></script>
+
+    <script>
+		var SCREEN_WIDTH = window.innerWidth,
+		SCREEN_HEIGHT = window.innerHeight,
+		SCREEN_WIDTH_HALF = SCREEN_WIDTH  / 2,
+		SCREEN_HEIGHT_HALF = SCREEN_HEIGHT / 2;
+
+		var scene;  // Contains representation information for all objects in your 3D space, 
+		var camera; // An object that will act as your viewport into the scene. (determins what we actually see)
+		var renderer; // Draws in our browser and displays the objects in the scene from the point of view of the camera.
+
+		// initialize camera
+		camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+
+		// initialize renderer 
+		renderer = new THREE.WebGLRenderer();
+		renderer.setClearColor( 0x000000 ); // background color 
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+		document.body.appendChild( renderer.domElement ); // place the renderer in our html DOM
+
+
+		// initialize scene 
+		scene = new THREE.Scene();
+
+		// place camera within the scene
+		scene.add(camera);
+		
+		function toRad(x) {
+			return x*(Math.PI/180);
+		}
+			
+		function starCoord(p1,p2,p3,p4,p5,p6,mag) {
+			var x = 500*(Math.sin(toRad(90-(p4+(p5/60)))))*(Math.cos(toRad(15*(p1+(p2/60)))));
+			var z = 500*(Math.sin(toRad(90-(p4+(p5/60)))))*(Math.sin(toRad(15*(p1+(p2/60)))));
+			var y = 500*(Math.cos(toRad(90-(p4+(p5/60)))));
+			console.log([x,y,z]);
+			return([x,y,z]);
+		}
+		
+		// Initializing and defining the test star
+		var sphere1, sphereGeometry, sphereMaterial;
+		var radius = 2; 
+		var segments = 10; // segments and rings helps determines how many faces are on the sphere
+		var rings = 10;
+		sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
+		
+		sphereMaterialArietis = new THREE.MeshPhongMaterial({color: 0xFF000});
+		sphereMaterialTauri = new THREE.MeshPhongMaterial({color: 0x000FFF});
+		sphereMaterialGeminorum = new THREE.MeshPhongMaterial({color: 0xFFFC38});
+		sphereMaterialCancri = new THREE.MeshPhongMaterial({color: 0xF00C38});
+		sphereMaterialLeonis = new THREE.MeshPhongMaterial({color: 0xE20CA1});
+		sphereMaterialVirginis = new THREE.MeshPhongMaterial({color: 0xC25C1D});
+		sphereMaterialLibrae = new THREE.MeshPhongMaterial({color: 0xFF000});
+		sphereMaterialScorpius = new THREE.MeshPhongMaterial({color: 0x000FFF});
+		sphereMaterialSagittarii = new THREE.MeshPhongMaterial({color: 0xFFFC38});
+		sphereMaterialCapricorni = new THREE.MeshPhongMaterial({color: 0xF00C38});
+		sphereMaterialAquarii = new THREE.MeshPhongMaterial({color: 0xE20CA1});
+		sphereMaterialPiscium = new THREE.MeshPhongMaterial({color: 0xC25C1D});
+		
+		
+		Alpha_Arietis = new THREE.Mesh(sphereGeometry, sphereMaterialArietis);
+		Beta_Arietis = new THREE.Mesh(sphereGeometry, sphereMaterialArietis);
+		Gamma_Arietis = new THREE.Mesh(sphereGeometry, sphereMaterialArietis);
+		Beta_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Alpha_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Zeta_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Xi_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Gamma_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Eta_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Lambda_Tauri = new THREE.Mesh(sphereGeometry, sphereMaterialTauri);
+		Mu_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Delta_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Beta_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Alpha_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Gamma_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Epsilon_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Eta_Geminorum = new THREE.Mesh(sphereGeometry, sphereMaterialGeminorum);
+		Alpha_Cancri = new THREE.Mesh(sphereGeometry, sphereMaterialCancri);
+		Beta_Cancri = new THREE.Mesh(sphereGeometry, sphereMaterialCancri);
+		Delta_Cancri = new THREE.Mesh(sphereGeometry, sphereMaterialCancri);
+		Iota_Cancri = new THREE.Mesh(sphereGeometry, sphereMaterialCancri);
+		Alpha_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Beta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Delta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Theta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Theta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Gamma_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Eta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Zeta_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Mu_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Epsilon_Leonis = new THREE.Mesh(sphereGeometry, sphereMaterialLeonis);
+		Alpha_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Gamma_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Epsilon_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Zeta_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Delta_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Beta_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Theta_Virginis = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Beta_Librae = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Sigma_Librae = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Alpha_Librae = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Gamma_Librae = new THREE.Mesh(sphereGeometry, sphereMaterialVirginis);
+		Alpha_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Beta_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Pi_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Delta_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Xi_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Mu_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Zeta_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Eta_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Theta_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Kappa_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Iota_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Nu_Scorpius = new THREE.Mesh(sphereGeometry, sphereMaterialScorpius);
+		Epsilon_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Eta_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Delta_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Lambda_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Phi_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Sigma_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Zeta_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Tao_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Pi_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Xi_Sagittarii = new THREE.Mesh(sphereGeometry, sphereMaterialSagittarii);
+		Delta_Capricorni = new THREE.Mesh(sphereGeometry, sphereMaterialCapricorni);
+		Theta_Capricorni = new THREE.Mesh(sphereGeometry, sphereMaterialCapricorni);
+		Alpha_Capricorni = new THREE.Mesh(sphereGeometry, sphereMaterialCapricorni);
+		Omega_Capricorni = new THREE.Mesh(sphereGeometry, sphereMaterialCapricorni);
+		Zeta_Capricorni = new THREE.Mesh(sphereGeometry, sphereMaterialCapricorni);
+		Delta_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Lambda_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Theta_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		x91_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Alpha_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Pi_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Zeta_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Gamma_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Beta_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Epsilon_Aquarii = new THREE.Mesh(sphereGeometry, sphereMaterialAquarii);
+		Tau_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Upsilon_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Phi_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Alpha_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Delta_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Theta_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Gamma_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Kappa_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+		Lambda_Piscium = new THREE.Mesh(sphereGeometry, sphereMaterialPiscium);
+
+		
+		scene.add(Alpha_Arietis);
+		scene.add(Beta_Arietis);
+		scene.add(Gamma_Arietis);
+		scene.add(Beta_Tauri);
+		scene.add(Alpha_Tauri);
+		scene.add(Zeta_Tauri);
+		scene.add(Xi_Tauri);
+		scene.add(Gamma_Tauri);
+		scene.add(Eta_Tauri);
+		scene.add(Lambda_Tauri);
+		scene.add(Mu_Geminorum);
+		scene.add(Delta_Geminorum);
+		scene.add(Beta_Geminorum);
+		scene.add(Alpha_Geminorum);
+		scene.add(Gamma_Geminorum);
+		scene.add(Epsilon_Geminorum);
+		scene.add(Eta_Geminorum);
+		scene.add(Alpha_Cancri);
+		scene.add(Beta_Cancri);
+		scene.add(Delta_Cancri);
+		scene.add(Iota_Cancri);
+		scene.add(Alpha_Leonis);
+		scene.add(Beta_Leonis);
+		scene.add(Delta_Leonis);
+		scene.add(Theta_Leonis);
+		scene.add(Gamma_Leonis);
+		scene.add(Eta_Leonis);
+		scene.add(Eta_Leonis);
+		scene.add(Mu_Leonis);
+		scene.add(Epsilon_Leonis);
+		scene.add(Alpha_Virginis);
+		scene.add(Gamma_Virginis);
+		scene.add(Epsilon_Virginis);
+		scene.add(Zeta_Virginis);
+		scene.add(Delta_Virginis);
+		scene.add(Beta_Virginis);
+		scene.add(Theta_Virginis);
+		scene.add(Beta_Librae);
+		scene.add(Sigma_Librae);
+		scene.add(Alpha_Librae);
+		scene.add(Gamma_Librae);
+		scene.add(Alpha_Scorpius);
+		scene.add(Beta_Scorpius);
+		scene.add(Pi_Scorpius);
+		scene.add(Delta_Scorpius);
+		scene.add(Xi_Scorpius);
+		scene.add(Mu_Scorpius);
+		scene.add(Zeta_Scorpius);
+		scene.add(Eta_Scorpius);
+		scene.add(Theta_Scorpius);
+		scene.add(Kappa_Scorpius);
+		scene.add(Iota_Scorpius);
+		scene.add(Nu_Scorpius);
+		scene.add(Epsilon_Sagittarii);
+		scene.add(Eta_Sagittarii);
+		scene.add(Delta_Sagittarii);
+		scene.add(Lambda_Sagittarii);
+		scene.add(Phi_Sagittarii);
+		scene.add(Sigma_Sagittarii);
+		scene.add(Zeta_Sagittarii);
+		scene.add(Tao_Sagittarii);
+		scene.add(Pi_Sagittarii);
+		scene.add(Xi_Sagittarii);
+		scene.add(Delta_Capricorni);
+		scene.add(Theta_Capricorni);
+		scene.add(Alpha_Capricorni);
+		scene.add(Omega_Capricorni);
+		scene.add(Zeta_Capricorni);
+		scene.add(Delta_Aquarii);
+		scene.add(Lambda_Aquarii);
+		scene.add(Theta_Aquarii);
+		scene.add(x91_Aquarii);
+		scene.add(Alpha_Aquarii);
+		scene.add(Pi_Aquarii);
+		scene.add(Zeta_Aquarii);
+		scene.add(Gamma_Aquarii);
+		scene.add(Beta_Aquarii);
+		scene.add(Epsilon_Aquarii);
+		scene.add(Tau_Piscium);
+		scene.add(Upsilon_Piscium);
+		scene.add(Phi_Piscium);
+		scene.add(Alpha_Piscium);
+		scene.add(Delta_Piscium);
+		scene.add(Theta_Piscium);
+		scene.add(Gamma_Piscium);
+		scene.add(Kappa_Piscium);
+		scene.add(Lambda_Piscium);
+
+
+		// Phong materials react to light, so we need a light source to see the objects. 
+		  
+		var light = new THREE.PointLight(0xffffff,1,1000);
+		scene.add(light)
+		light.position.set(0,0,0);
+			  
+		
+		var Alpha_Arietis_Coords = starCoord(2,7,10,23,27,45,2);
+		Alpha_Arietis.position.set(Alpha_Arietis_Coords[0],Alpha_Arietis_Coords[1],Alpha_Arietis_Coords[2]);
+		var Beta_Arietis_Coords = starCoord(1,64,38,20,48,29,2.5);
+		Beta_Arietis.position.set(Beta_Arietis_Coords[0],Beta_Arietis_Coords[1],Beta_Arietis_Coords[2]);
+		var Gamma_Arietis_Coords = starCoord(1,53,32,19,17,38,3.9);
+		Gamma_Arietis.position.set(Gamma_Arietis_Coords[0],Gamma_Arietis_Coords[1],Gamma_Arietis_Coords[2]);
+		var Beta_Tauri_Coords = starCoord(5,26,18,28,36,27,1.7);
+		Beta_Tauri.position.set(Beta_Tauri_Coords[0],Beta_Tauri_Coords[1],Beta_Tauri_Coords[2]);
+		var Alpha_Tauri_Coords = starCoord(4,35,55,16,30,33,.86);
+		Alpha_Tauri.position.set(Alpha_Tauri_Coords[0],Alpha_Tauri_Coords[1],Alpha_Tauri_Coords[2]);
+		var Zeta_Tauri_Coords = starCoord(5,37,39,21,8,33,3);
+		Zeta_Tauri.position.set(Zeta_Tauri_Coords[0],Zeta_Tauri_Coords[1],Zeta_Tauri_Coords[2]);
+		var Xi_Tauri_Coords = starCoord(3,27,10,9,44,58,3.7);
+		Xi_Tauri.position.set(Xi_Tauri_Coords[0],Xi_Tauri_Coords[1],Xi_Tauri_Coords[2]);
+		var Gamma_Tauri_Coords = starCoord(4,19,48,15,37,40,3.6);
+		Gamma_Tauri.position.set(Gamma_Tauri_Coords[0],Gamma_Tauri_Coords[1],Gamma_Tauri_Coords[2]);
+		var Eta_Tauri_Coords = starCoord(3,47,29,24,6,18,2.9);
+		Eta_Tauri.position.set(Eta_Tauri_Coords[0],Eta_Tauri_Coords[1],Eta_Tauri_Coords[2]);
+		var Lambda_Tauri_Coords = starCoord(4,0,41,12,29,25,3.5);
+		Lambda_Tauri.position.set(Lambda_Tauri_Coords[0],Lambda_Tauri_Coords[1],Lambda_Tauri_Coords[2]);
+		var Mu_Geminorum_Coords = starCoord(6,22,58,22,30,49,2.9);
+		Mu_Geminorum.position.set(Mu_Geminorum_Coords[0],Mu_Geminorum_Coords[1],Mu_Geminorum_Coords[2]);
+		var Delta_Geminorum_Coords = starCoord(7,20,7,21,58,56,3.5);
+		Delta_Geminorum.position.set(Delta_Geminorum_Coords[0],Delta_Geminorum_Coords[1],Delta_Geminorum_Coords[2]);
+		var Beta_Geminorum_Coords = starCoord(7,45,19,28,1,34,1);
+		Beta_Geminorum.position.set(Beta_Geminorum_Coords[0],Beta_Geminorum_Coords[1],Beta_Geminorum_Coords[2]);
+		var Alpha_Geminorum_Coords = starCoord(7,34,36,31,53,18,1.9);
+		Alpha_Geminorum.position.set(Alpha_Geminorum_Coords[0],Alpha_Geminorum_Coords[1],Alpha_Geminorum_Coords[2]);
+		var Gamma_Geminorum_Coords = starCoord(6,37,43,16,24,57,1.9);
+		Gamma_Geminorum.position.set(Gamma_Geminorum_Coords[0],Gamma_Geminorum_Coords[1],Gamma_Geminorum_Coords[2]);
+		var Epsilon_Geminorum_Coords = starCoord(6,43,56,25,7,52,3);
+		Epsilon_Geminorum.position.set(Epsilon_Geminorum_Coords[0],Epsilon_Geminorum_Coords[1],Epsilon_Geminorum_Coords[2]);
+		var Eta_Geminorum_Coords = starCoord(6,14,53,22,30,24,3.5);
+		Eta_Geminorum.position.set(Eta_Geminorum_Coords[0],Eta_Geminorum_Coords[1],Eta_Geminorum_Coords[2]);
+		var Alpha_Cancri_Coords = starCoord(8,58,29,11,51,28,4.25);
+		Alpha_Cancri.position.set(Alpha_Cancri_Coords[0],Alpha_Cancri_Coords[1],Alpha_Cancri_Coords[2]);
+		var Beta_Cancri_Coords = starCoord(8,16,31,9,11,8,3.5);
+		Beta_Cancri.position.set(Beta_Cancri_Coords[0],Beta_Cancri_Coords[1],Beta_Cancri_Coords[2]);
+		var Delta_Cancri_Coords = starCoord(8,4,41,18,9,15,3.94);
+		Delta_Cancri.position.set(Delta_Cancri_Coords[0],Delta_Cancri_Coords[1],Delta_Cancri_Coords[2]);
+		var Iota_Cancri_Coords = starCoord(8,46,42,28,45,36,4);
+		Iota_Cancri.position.set(Iota_Cancri_Coords[0],Iota_Cancri_Coords[1],Iota_Cancri_Coords[2]);
+		var Alpha_Leonis_Coords = starCoord(10,8,22,11,58,2,1.4);
+		Alpha_Leonis.position.set(Alpha_Leonis_Coords[0],Alpha_Leonis_Coords[1],Alpha_Leonis_Coords[2]);
+		var Beta_Leonis_Coords = starCoord(11,49,3.6,14,34,19,2);
+		Beta_Leonis.position.set(Beta_Leonis_Coords[0],Beta_Leonis_Coords[1],Beta_Leonis_Coords[2]);
+		var Delta_Leonis_Coords = starCoord(11,14,6.5,20,31,25,2.56);
+		Delta_Leonis.position.set(Delta_Leonis_Coords[0],Delta_Leonis_Coords[1],Delta_Leonis_Coords[2]);
+		var Theta_Leonis_Coords = starCoord(11,14,14,15,25,4.6);
+		Theta_Leonis.position.set(Theta_Leonis_Coords[0],Theta_Leonis_Coords[1],Theta_Leonis_Coords[2]);
+		var Gamma_Leonis_Coords = starCoord(10,19,58,19,50,29,2);
+		Gamma_Leonis.position.set(Gamma_Leonis_Coords[0],Gamma_Leonis_Coords[1],Gamma_Leonis_Coords[2]);
+		var Eta_Leonis_Coords = starCoord(10,7,20,16,45,45,3.5);
+		Eta_Leonis.position.set(Eta_Leonis_Coords[0],Eta_Leonis_Coords[1],Eta_Leonis_Coords[2]);
+		var Zeta_Leonis_Coords = starCoord(10,16,41,23,25,2,3.3);
+		Zeta_Leonis.position.set(Zeta_Leonis_Coords[0],Zeta_Leonis_Coords[1],Zeta_Leonis_Coords[2]);
+		var Mu_Leonis_Coords = starCoord(9,52,46,26,0,25,3.9);
+		Mu_Leonis.position.set(Mu_Leonis_Coords[0],Mu_Leonis_Coords[1],Mu_Leonis_Coords[2]);
+		var Epsilon_Leonis_Coords = starCoord(9,45,51,23,46,27,3);
+		Epsilon_Leonis.position.set(Epsilon_Leonis_Coords[0],Epsilon_Leonis_Coords[1],Epsilon_Leonis_Coords[2]);
+		var Alpha_Virginis_Coords = starCoord(13,25,12,-11,-9,-41,1);
+		Alpha_Virginis.position.set(Alpha_Virginis_Coords[0],Alpha_Virginis_Coords[1],Alpha_Virginis_Coords[2]);
+		var Gamma_Virginis_Coords = starCoord(12,41,40,-1,-26,-58,-2.75);
+		Gamma_Virginis.position.set(Gamma_Virginis_Coords[0],Gamma_Virginis_Coords[1],Gamma_Virginis_Coords[2]);
+		var Epsilon_Virginis_Coords = starCoord(13,2,11,10,57,33,3);
+		Epsilon_Virginis.position.set(Epsilon_Virginis_Coords[0],Epsilon_Virginis_Coords[1],Epsilon_Virginis_Coords[2]);
+		var Zeta_Virginis_Coords = starCoord(10,34,42,0,-35,-45,3.4);
+		Zeta_Virginis.position.set(Zeta_Virginis_Coords[0],Zeta_Virginis_Coords[1],Zeta_Virginis_Coords[2]);
+		var Delta_Virginis_Coords = starCoord(12,55,36,3,23,51,3.4);
+		Delta_Virginis.position.set(Delta_Virginis_Coords[0],Delta_Virginis_Coords[1],Delta_Virginis_Coords[2]);
+		var Beta_Virginis_Coords = starCoord(11,50,52,1,45,53,3.6);
+		Beta_Virginis.position.set(Beta_Virginis_Coords[0],Beta_Virginis_Coords[1],Beta_Virginis_Coords[2]);
+		var Theta_Virginis_Coords = starCoord(13,9,57,-5,-32,-20,4.4);
+		Theta_Virginis.position.set(Theta_Virginis_Coords[0],Theta_Virginis_Coords[1],Theta_Virginis_Coords[2]);
+		var Beta_Librae_Coords = starCoord(16,17,0,-9,-22,-58,2.61);
+		Beta_Librae.position.set(Beta_Librae_Coords[0],Beta_Librae_Coords[1],Beta_Librae_Coords[2]);
+		var Sigma_Librae_Coords = starCoord(15,4,4,-25,-16,-55,3.3);
+		Sigma_Librae.position.set(Sigma_Librae_Coords[0],Sigma_Librae_Coords[1],Sigma_Librae_Coords[2]);
+		var Alpha_Librae_Coords = starCoord(14,50,41,-15,-59.5,-50,5);
+		Alpha_Librae.position.set(Alpha_Librae_Coords[0],Alpha_Librae_Coords[1],Alpha_Librae_Coords[2]);
+		var Gamma_Librae_Coords = starCoord(15,35,31.5,-14,-27,-22,3.9);
+		Gamma_Librae.position.set(Gamma_Librae_Coords[0],Gamma_Librae_Coords[1],Gamma_Librae_Coords[2]);
+		var Alpha_Scorpius_Coords = starCoord(16,29,24,-26,-25,-55,1);
+		Alpha_Scorpius.position.set(Alpha_Scorpius_Coords[0],Alpha_Scorpius_Coords[1],Alpha_Scorpius_Coords[2]);
+		var Beta_Scorpius_Coords = starCoord(16,5,26,-19,-48,-7,5);
+		Beta_Scorpius.position.set(Beta_Scorpius_Coords[0],Beta_Scorpius_Coords[1],Beta_Scorpius_Coords[2]);
+		var Pi_Scorpius_Coords = starCoord(15,58,51,-26,-6,-51,3);
+		Pi_Scorpius.position.set(Pi_Scorpius_Coords[0],Pi_Scorpius_Coords[1],Pi_Scorpius_Coords[2]);
+		var Delta_Scorpius_Coords = starCoord(16,0,20,-22,-37,-18,2.3);
+		Delta_Scorpius.position.set(Delta_Scorpius_Coords[0],Delta_Scorpius_Coords[1],Delta_Scorpius_Coords[2]);
+		var Xi_Scorpius_Coords = starCoord(16,4,22,-11,-22,-23,4.16);
+		Xi_Scorpius.position.set(Xi_Scorpius_Coords[0],Xi_Scorpius_Coords[1],Xi_Scorpius_Coords[2]);
+		var Mu_Scorpius_Coords = starCoord(16,51,52,-38,-2,-50.5,3);
+		Mu_Scorpius.position.set(Mu_Scorpius_Coords[0],Mu_Scorpius_Coords[1],Mu_Scorpius_Coords[2]);
+		var Zeta_Scorpius_Coords = starCoord(16,54,34,-42,-21,-40,5.6);
+		Zeta_Scorpius.position.set(Zeta_Scorpius_Coords[0],Zeta_Scorpius_Coords[1],Zeta_Scorpius_Coords[2]);
+		var Eta_Scorpius_Coords = starCoord(17,12,9,-43,-14,-21,3.33);
+		Eta_Scorpius.position.set(Eta_Scorpius_Coords[0],Eta_Scorpius_Coords[1],Eta_Scorpius_Coords[2]);
+		var Theta_Scorpius_Coords = starCoord(17,37,19,-42,59,52,1.8);
+		Theta_Scorpius.position.set(Theta_Scorpius_Coords[0],Theta_Scorpius_Coords[1],Theta_Scorpius_Coords[2]);
+		var Kappa_Scorpius_Coords = starCoord(17,42,2,-39,-1,-48,2.4);
+		Kappa_Scorpius.position.set(Kappa_Scorpius_Coords[0],Kappa_Scorpius_Coords[1],Kappa_Scorpius_Coords[2]);
+		var Iota_Scorpius_Coords = starCoord(17,47,35,-40,7,37,3);
+		Iota_Scorpius.position.set(Iota_Scorpius_Coords[0],Iota_Scorpius_Coords[1],Iota_Scorpius_Coords[2]);
+		var Nu_Scorpius_Coords = starCoord(16,11,60,-19,-27,-39,4);
+		Nu_Scorpius.position.set(Nu_Scorpius_Coords[0],Nu_Scorpius_Coords[1],Nu_Scorpius_Coords[2]);
+		var Epsilon_Sagittarii_Coords = starCoord(18,24,10,-34,-23,-5,1.9);
+		Epsilon_Sagittarii.position.set(Epsilon_Sagittarii_Coords[0],Epsilon_Sagittarii_Coords[1],Epsilon_Sagittarii_Coords[2]);
+		var Eta_Sagittarii_Coords = starCoord(18,17,38,-36,-45,-42,3.11);
+		Eta_Sagittarii.position.set(Eta_Sagittarii_Coords[0],Eta_Sagittarii_Coords[1],Eta_Sagittarii_Coords[2]);
+		var Delta_Sagittarii_Coords = starCoord(18,20,60,-29,-49,-41,2.7);
+		Delta_Sagittarii.position.set(Delta_Sagittarii_Coords[0],Delta_Sagittarii_Coords[1],Delta_Sagittarii_Coords[2]);
+		var Lambda_Sagittarii_Coords = starCoord(18,27,58,-25,-25,-18);
+		Lambda_Sagittarii.position.set(Lambda_Sagittarii_Coords[0],Lambda_Sagittarii_Coords[1],Lambda_Sagittarii_Coords[2]);
+		var Phi_Sagittarii_Coords = starCoord(18,45,39,-26,-59,-27,3.2);
+		Phi_Sagittarii.position.set(Phi_Sagittarii_Coords[0],Phi_Sagittarii_Coords[1],Phi_Sagittarii_Coords[2]);
+		var Sigma_Sagittarii_Coords = starCoord(18,55,16,-26,17,48,2);
+		Sigma_Sagittarii.position.set(Sigma_Sagittarii_Coords[0],Sigma_Sagittarii_Coords[1],Sigma_Sagittarii_Coords[2]);
+		var Zeta_Sagittarii_Coords = starCoord(19,2,37,-29,-52,-48,2.6);
+		Zeta_Sagittarii.position.set(Zeta_Sagittarii_Coords[0],Zeta_Sagittarii_Coords[1],Zeta_Sagittarii_Coords[2]);
+		var Tao_Sagittarii_Coords = starCoord(19,6,56,-27,40,13,3.3);
+		Tao_Sagittarii.position.set(Tao_Sagittarii_Coords[0],Tao_Sagittarii_Coords[1],Tao_Sagittarii_Coords[2]);
+		var Pi_Sagittarii_Coords = starCoord(19,9,46,-21,-1,-25,2.9);
+		Pi_Sagittarii.position.set(Pi_Sagittarii_Coords[0],Pi_Sagittarii_Coords[1],Pi_Sagittarii_Coords[2]);
+		var Xi_Sagittarii_Coords = starCoord(19,57,20.5,-20,-39,-23,5);
+		Xi_Sagittarii.position.set(Xi_Sagittarii_Coords[0],Xi_Sagittarii_Coords[1],Xi_Sagittarii_Coords[2]);
+		var Delta_Capricorni_Coords = starCoord(21,47,2,-16,7,38);
+		Delta_Capricorni.position.set(Delta_Capricorni_Coords[0],Delta_Capricorni_Coords[1],Delta_Capricorni_Coords[2]);
+		var Theta_Capricorni_Coords = starCoord(21,5,57,-17,13,58,4.1);
+		Theta_Capricorni.position.set(Theta_Capricorni_Coords[0],Theta_Capricorni_Coords[1],Theta_Capricorni_Coords[2]);
+		var Alpha_Capricorni_Coords = starCoord(20,18,3,-12,-32,-41,3.6);
+		Alpha_Capricorni.position.set(Alpha_Capricorni_Coords[0],Alpha_Capricorni_Coords[1],Alpha_Capricorni_Coords[2]);
+		var Omega_Capricorni_Coords = starCoord(20,51,49,-26,-55,-1,4.12);
+		Omega_Capricorni.position.set(Omega_Capricorni_Coords[0],Omega_Capricorni_Coords[1],Omega_Capricorni_Coords[2]);
+		var Zeta_Capricorni_Coords = starCoord(21,26,40,-22,-24,-1,3.77);
+		Zeta_Capricorni.position.set(Zeta_Capricorni_Coords[0],Zeta_Capricorni_Coords[1],Zeta_Capricorni_Coords[2]);
+		var Delta_Aquarii_Coords = starCoord(22,54,39,-15,-49,-15,3.3);
+		Delta_Aquarii.position.set(Delta_Aquarii_Coords[0],Delta_Aquarii_Coords[1],Delta_Aquarii_Coords[2]);
+		var Lambda_Aquarii_Coords = starCoord(22,52,37,-7,34,37,3.7);
+		Lambda_Aquarii.position.set(Lambda_Aquarii_Coords[0],Lambda_Aquarii_Coords[1],Lambda_Aquarii_Coords[2]);
+		var Theta_Aquarii_Coords = starCoord(22,16,50,-7,46,60,4.18);
+		Theta_Aquarii.position.set(Theta_Aquarii_Coords[0],Theta_Aquarii_Coords[1],Theta_Aquarii_Coords[2]);
+		var x91_Aquarii_Coords = starCoord(23,15,53,-9,-5,16,.25);
+		x91_Aquarii.position.set(x91_Aquarii_Coords[0],x91_Aquarii_Coords[1],x91_Aquarii_Coords[2]);
+		var Alpha_Aquarii_Coords = starCoord(22,5,47,-0,-19,-11,2.9);
+		Alpha_Aquarii.position.set(Alpha_Aquarii_Coords[0],Alpha_Aquarii_Coords[1],Alpha_Aquarii_Coords[2]);
+		var Pi_Aquarii_Coords = starCoord(22,25,17,1,22,39,4.66);
+		Pi_Aquarii.position.set(Pi_Aquarii_Coords[0],Pi_Aquarii_Coords[1],Pi_Aquarii_Coords[2]);
+		var Zeta_Aquarii_Coords = starCoord(22,28,50,0,-1,-12);
+		Zeta_Aquarii.position.set(Zeta_Aquarii_Coords[0],Zeta_Aquarii_Coords[1],Zeta_Aquarii_Coords[2]);
+		var Gamma_Aquarii_Coords = starCoord(22,21,39,-1,-23,-14,3.8);
+		Gamma_Aquarii.position.set(Gamma_Aquarii_Coords[0],Gamma_Aquarii_Coords[1],Gamma_Aquarii_Coords[2]);
+		var Beta_Aquarii_Coords = starCoord(21,31,34,-5,-34,-16,2.9);
+		Beta_Aquarii.position.set(Beta_Aquarii_Coords[0],Beta_Aquarii_Coords[1],Beta_Aquarii_Coords[2]);
+		var Epsilon_Aquarii_Coords = starCoord(20,47,41,-9,-29,-45);
+		Epsilon_Aquarii.position.set(Epsilon_Aquarii_Coords[0],Epsilon_Aquarii_Coords[1],Epsilon_Aquarii_Coords[2]);
+		var Tau_Piscium_Coords = starCoord(1,11,40,30,5,23,4.5);
+		Tau_Piscium.position.set(Tau_Piscium_Coords[0],Tau_Piscium_Coords[1],Tau_Piscium_Coords[2]);
+		var Upsilon_Piscium_Coords = starCoord(1,19,28,27,15,51,4.7);
+		Upsilon_Piscium.position.set(Upsilon_Piscium_Coords[0],Upsilon_Piscium_Coords[1],Upsilon_Piscium_Coords[2]);
+		var Phi_Piscium_Coords = starCoord(1,13,45,24,34,1.4,4.7);
+		Phi_Piscium.position.set(Phi_Piscium_Coords[0],Phi_Piscium_Coords[1],Phi_Piscium_Coords[2]);
+		var Alpha_Piscium_Coords = starCoord(2,2,2.8,2,45,49.5,3.82);
+		Alpha_Piscium.position.set(Alpha_Piscium_Coords[0],Alpha_Piscium_Coords[1],Alpha_Piscium_Coords[2]);
+		var Delta_Piscium_Coords = starCoord(0,48,41,7,35,6.,4.4);
+		Delta_Piscium.position.set(Delta_Piscium_Coords[0],Delta_Piscium_Coords[1],Delta_Piscium_Coords[2]);
+		var Theta_Piscium_Coords = starCoord(23,27,58,6,22,44,4.3);
+		Theta_Piscium.position.set(Theta_Piscium_Coords[0],Theta_Piscium_Coords[1],Theta_Piscium_Coords[2]);
+		var Gamma_Piscium_Coords = starCoord(23,177,9.9,3,16,56,3.7);
+		Gamma_Piscium.position.set(Gamma_Piscium_Coords[0],Gamma_Piscium_Coords[1],Gamma_Piscium_Coords[2]);
+		var Kappa_Piscium_Coords = starCoord(23,26,56,1,15,20,5);
+		Kappa_Piscium.position.set(Kappa_Piscium_Coords[0],Kappa_Piscium_Coords[1],Kappa_Piscium_Coords[2]);
+		var Lambda_Piscium_Coords = starCoord(23,42,3,1,46,48,4.5);
+		Lambda_Piscium.position.set(Lambda_Piscium_Coords[0],Lambda_Piscium_Coords[1],Lambda_Piscium_Coords[2]);
+		
+		
+		// Place camera at origin and point it towards the test star
+		camera.position.set(0, 0, 0); 
+		camera.lookAt(new THREE.Vector3(1,0,0));
+		
+		function timeFormat(x) {
+			var hours = Math.floor(x/3600);
+			var minutes  = Math.floor((x%3600)/60);
+			var n = (hours%24)+":"+minutes+":00"
+			return n;
+		}
+		
+		var isClockOn = true;
+		var stateChange = true;
+		var timeStamp2 = 0;
+		function stopClock() {
+			isClockOn = false;
+		}
+		function startClock() {
+			isClockOn = true;
+		}
+		
+		var timeStamp = Date.now();
+		var multiplier = 1;
+		
+        animate(); 
+	  
+		function animate() {
+			requestAnimationFrame( animate );
+			render();
+			}
+      
+		function render() {
+			if (isClockOn) {
+				if (stateChange == false) {
+					timeStamp = timeStamp + Date.now() - timeStamp2;
+				}
+				if (window.isK3Down){
+					multiplier = 2;
+				}else {
+					multiplier = 1
+				}
+				if (window.isK4Down){
+					multiplier = -1.3;
+				}else {
+					multiplier = 1
+				}
+				var timer = -0.00375 * multiplier * (Date.now()-timeStamp);
+				camera.rotation.y = timer * Math.PI / 180;
+				var earthTime = timeFormat(((9/10)*(Date.now()-timeStamp)));
+				document.getElementById("clocktext").value = "Time:" + earthTime;
+				stateChange = true;
+				
+			} else {
+				if (stateChange == true) {
+					timeStamp2 = Date.now();
+				}
+				stateChange = false;
+			}
+			
+			renderer.render( scene, camera );
+			}
+	</script>
+  </body>
+</html>
